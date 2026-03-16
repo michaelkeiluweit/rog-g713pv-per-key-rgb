@@ -162,15 +162,16 @@ The protocol is reverse-engineered from [asusctl/rog-aura](https://gitlab.com/as
 
 ## Compatibility
 
-Run this in PowerShell to check if your laptop has the right HID interface:
+Run this in PowerShell to check if your laptop has the Aura keyboard interface:
 
 ```powershell
-Get-PnpDevice | Where-Object { $_.InstanceId -match 'VID_0B05' -and $_.Class -eq 'HIDClass' } | Select Name, InstanceId
+Get-PnpDevice | Where-Object { $_.InstanceId -match 'VID_0B05.*COL04' }
 ```
 
-If you see entries with `COL04` and `COL05`, your laptop is compatible. The PID in the output
-(e.g. `PID_19B6`) needs to match the `PID` value in `keyboard-led.py`. If yours is different,
-update it in the script.
+If it returns a result, you're good. If nothing shows up, your laptop doesn't have the per-key RGB interface.
+
+For other ROG models with a different PID, update the `PID` value in `keyboard-led.py`
+and use `scan-keys.py` to map your key positions.
 
 The key positions are specific to the G713PV. For other models you'll need to run `scan-keys.py`
 to map your layout and update the `KEY` dictionary.
