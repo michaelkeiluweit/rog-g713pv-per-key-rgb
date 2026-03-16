@@ -162,34 +162,25 @@ The protocol is reverse-engineered from [asusctl/rog-aura](https://gitlab.com/as
 
 ## Compatibility
 
-To check if your ROG laptop is compatible:
+Run this in PowerShell to check if your laptop has the right HID interface:
 
-```python
-import hid
-for d in hid.enumerate(0x0B05):
-    if d['usage_page'] == 0xFF31:
-        print(f"Found: {d['product_string']} (PID 0x{d['product_id']:04X})")
+```powershell
+Get-PnpDevice | Where-Object { $_.InstanceId -match 'VID_0B05' -and $_.Class -eq 'HIDClass' } | Select Name, InstanceId
 ```
 
-If you see a device with Usage Page `0xFF31`, it should work. You may need to:
-1. Update `PID` in the script
-2. Use `scan-keys.py` to map your keyboard layout
-3. Update the `KEY` dictionary
+If you see entries with `COL04` and `COL05`, your laptop is compatible. The PID in the output
+(e.g. `PID_19B6`) needs to match the `PID` value in `keyboard-led.py`. If yours is different,
+update it in the script.
 
-### Known compatible PIDs
-
-| PID | Model |
-|-----|-------|
-| `0x19B6` | ROG Strix G17 G713PV |
-
-PRs welcome for other models!
+The key positions are specific to the G713PV. For other models you'll need to run `scan-keys.py`
+to map your layout and update the `KEY` dictionary.
 
 ## Credits
 
-- [asusctl / rog-aura](https://gitlab.com/asus-linux/asusctl) — reverse-engineered Aura protocol and key mappings
-- [OpenRGB](https://gitlab.com/CalcProgrammer1/OpenRGB) — general RGB control reference
-- [rogauracore](https://github.com/wroberts/rogauracore) — early ROG Aura reverse engineering
+- [asusctl / rog-aura](https://gitlab.com/asus-linux/asusctl) for the reverse-engineered Aura protocol
+- [OpenRGB](https://gitlab.com/CalcProgrammer1/OpenRGB) for general RGB control reference
+- [rogauracore](https://github.com/wroberts/rogauracore) for early ROG Aura reverse engineering
 
 ## License
 
-MIT
+CC BY-NC 4.0 (free to use, no commercial use)
