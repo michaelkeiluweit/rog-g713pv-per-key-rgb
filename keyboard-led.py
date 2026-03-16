@@ -71,7 +71,10 @@ KEY = {
     'F5': 10, 'F6': 11, 'F7': 12, 'F8': 13,
     'F9': 14, 'F10': 15, 'F11': 16, 'F12': 17,
     # Row 2 — Nav cluster (pos 19-22)
-    'DEL': 19, 'PAUSE': 20, 'PRTSC': 21, 'HOME': 22,
+    'DEL': 19, 'INS': 19,        # Entf / Einfg
+    'PAUSE': 20, 'BREAK': 20,    # Pause / Untbr
+    'PRTSC': 21, 'SYSRQ': 21,    # Druck / S-Abf
+    'HOME': 22, 'END': 22,        # Pos1 / Ende
     # Row 2 — Number row (pos 23-35)
     'CIRCUMFLEX': 23, '1': 24, '2': 25, '3': 26, '4': 27,
     '5': 28, '6': 29, '7': 30, '8': 31, '9': 32,
@@ -100,8 +103,10 @@ KEY = {
     'LSHIFT': 84, 'LESS': 85, 'Y': 86, 'X': 87, 'C': 88,
     'V': 89, 'B': 90, 'N': 91, 'M': 92,
     'COMMA': 93, 'PERIOD': 94, 'MINUS': 95,
-    # Row 5 — RShift + Arrow (pos 98-99)
-    'RSHIFT': 98, 'UP': 99,
+    # Row 5 — RShift (2 LEDs) + Arrow (pos 98-99, 123)
+    'RSHIFT': 98,
+    'RSHIFT_1': 98, 'RSHIFT_2': 123,
+    'UP': 99,
     # Row 5 — Numpad (pos 101-104)
     'KP1': 101, 'KP2': 102, 'KP3': 103, 'KP_ENTER': 104,
     # Row 6 — Bottom row (pos 105-112)
@@ -117,6 +122,7 @@ KEY = {
 MULTI_LED_KEYS = {
     'ENTER': ['ENTER_1', 'ENTER_2', 'ENTER_3'],
     'BACKSPACE': ['BACKSPACE_1', 'BACKSPACE_2', 'BACKSPACE_3'],
+    'RSHIFT': ['RSHIFT_1', 'RSHIFT_2'],
 }
 
 
