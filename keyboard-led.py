@@ -64,57 +64,57 @@ PACKET_MAP = [
 # Verified empirically on G713PV. The PACKET_MAP has two interleaved
 # sections per row: a 5-entry numpad group and a 12-14 entry main group.
 KEY = {
-    # Row 0 — Macro keys (pos 0-4)
+    # Row 0 -Macro keys (pos 0-4)
     'M1': 0, 'M2': 1, 'M3': 2, 'M4': 3, 'M5': 4,
-    # Row 1 — Function row (pos 5-17)
+    # Row 1 -Function row (pos 5-17)
     'ESC': 5, 'F1': 6, 'F2': 7, 'F3': 8, 'F4': 9,
     'F5': 10, 'F6': 11, 'F7': 12, 'F8': 13,
     'F9': 14, 'F10': 15, 'F11': 16, 'F12': 17,
-    # Row 2 — Nav cluster (pos 19-22)
+    # Row 2 -Nav cluster (pos 19-22)
     'DEL': 19, 'INS': 19,        # Entf / Einfg
     'PAUSE': 20, 'BREAK': 20,    # Pause / Untbr
     'PRTSC': 21, 'SYSRQ': 21,    # Druck / S-Abf
     'HOME': 22, 'END': 22,        # Pos1 / Ende
-    # Row 2 — Number row (pos 23-35)
+    # Row 2 -Number row (pos 23-35)
     'CIRCUMFLEX': 23, '1': 24, '2': 25, '3': 26, '4': 27,
     '5': 28, '6': 29, '7': 30, '8': 31, '9': 32,
     '0': 33, 'SZLIG': 34, 'ACUTE': 35,
-    # Row 2 — Backspace (3 LEDs, pos 36-38)
+    # Row 2 -Backspace (3 LEDs, pos 36-38)
     'BACKSPACE': 36,
     'BACKSPACE_1': 36, 'BACKSPACE_2': 37, 'BACKSPACE_3': 38,
-    # Row 3 — Numpad top (pos 40-43)
+    # Row 3 -Numpad top (pos 40-43)
     'NUMLOCK': 40, 'KP_SLASH': 41, 'KP_STAR': 42, 'KP_MINUS': 43,
-    # Row 3 — Tab row (pos 44-57)
+    # Row 3 -Tab row (pos 44-57)
     'TAB': 44, 'Q': 45, 'W': 46, 'E': 47, 'R': 48,
     'T': 49, 'Z': 50, 'U': 51, 'I': 52, 'O': 53,
     'P': 54, 'UUML': 55, 'PLUS': 56, 'HASH': 57,
-    # Row 3 — Numpad (pos 59-62)
+    # Row 3 -Numpad (pos 59-62)
     'KP7': 59, 'KP8': 60, 'KP9': 61, 'KP_PLUS': 62,
-    # Row 4 — Home row (pos 63-74)
+    # Row 4 -Home row (pos 63-74)
     'CAPS': 63, 'A': 64, 'S': 65, 'D': 66, 'F': 67,
     'G': 68, 'H': 69, 'J': 70, 'K': 71, 'L': 72,
     'OUML': 73, 'AUML': 74,
-    # Row 4 — Enter (3 LEDs, pos 76-78)
+    # Row 4 -Enter (3 LEDs, pos 76-78)
     'ENTER': 76,
     'ENTER_1': 76, 'ENTER_2': 77, 'ENTER_3': 78,
-    # Row 4 — Numpad (pos 80-82)
+    # Row 4 -Numpad (pos 80-82)
     'KP4': 80, 'KP5': 81, 'KP6': 82,
-    # Row 5 — Shift row (pos 84-95)
+    # Row 5 -Shift row (pos 84-95)
     'LSHIFT': 84, 'LESS': 85, 'Y': 86, 'X': 87, 'C': 88,
     'V': 89, 'B': 90, 'N': 91, 'M': 92,
     'COMMA': 93, 'PERIOD': 94, 'MINUS': 95,
-    # Row 5 — RShift (2 LEDs) + Arrow (pos 98-99, 123)
+    # Row 5 -RShift (2 LEDs) + Arrow (pos 98-99, 123)
     'RSHIFT': 98,
     'RSHIFT_1': 98, 'RSHIFT_2': 123,
     'UP': 99,
-    # Row 5 — Numpad (pos 101-104)
+    # Row 5 -Numpad (pos 101-104)
     'KP1': 101, 'KP2': 102, 'KP3': 103, 'KP_ENTER': 104,
-    # Row 6 — Bottom row (pos 105-112)
+    # Row 6 -Bottom row (pos 105-112)
     'LCTRL': 105, 'FN': 106, 'LWIN': 107, 'LALT': 108,
     'SPACE': 109, 'RALT': 110, 'RCTRL': 112,
-    # Row 6 — Arrows (pos 113-115)
+    # Row 6 -Arrows (pos 113-115)
     'LEFT': 113, 'DOWN': 114, 'RIGHT': 115,
-    # Row 6 — Numpad (pos 117-118)
+    # Row 6 -Numpad (pos 117-118)
     'KP0': 117, 'KP_COMMA': 118,
 }
 
@@ -133,11 +133,11 @@ def parse_color(value):
     if isinstance(value, str):
         h = value.lstrip('#')
         if len(h) != 6:
-            raise ValueError(f"Invalid hex color '{value}' — must be 6 hex digits (e.g. 'FF00FF')")
+            raise ValueError(f"Invalid hex color '{value}' -must be 6 hex digits (e.g. 'FF00FF')")
         try:
             return (int(h[0:2], 16), int(h[2:4], 16), int(h[4:6], 16))
         except ValueError:
-            raise ValueError(f"Invalid hex color '{value}' — contains non-hex characters")
+            raise ValueError(f"Invalid hex color '{value}' -contains non-hex characters")
     elif isinstance(value, list):
         if len(value) != 3:
             raise ValueError(f"RGB color must have 3 values, got {len(value)}: {value}")
