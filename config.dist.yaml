@@ -1,0 +1,134 @@
+# ASUS ROG G713PV Keyboard LED Configuration
+#
+# Copy this file to config.yaml and customize your colors.
+# Colors: hex string "FF00FF" or RGB array [255, 0, 255]
+#
+# All known keys are listed below. Uncomment and set a color to override.
+# Keys not listed here will use the base color.
+
+base: "00FF00"
+
+keys:
+  # === Macro keys ===
+  # M1: "FF0000"
+  # M2: "FF0000"
+  # M3: "FF0000"
+  # M4: "FF0000"
+  # M5: "FF0000"
+
+  # === Function row ===
+  # ESC: "FF0000"
+  # F1: "FF0000"
+  # F2: "FF0000"
+  # F3: "FF0000"
+  # F4: "FF0000"
+  # F5: "FF0000"
+  # F6: "FF0000"
+  # F7: "FF0000"
+  # F8: "FF0000"
+  # F9: "FF0000"
+  # F10: "FF0000"
+  # F11: "FF0000"
+  # F12: "FF0000"
+
+  # === Navigation cluster ===
+  # DEL: "FF0000"          # same key as INS
+  # PAUSE: "FF0000"        # same key as BREAK
+  # PRTSC: "FF0000"        # same key as SYSRQ
+  # HOME: "FF0000"         # same key as END
+
+  # === Number row ===
+  # CIRCUMFLEX: "FF0000"   # ^ key
+  # "1": "FF0000"
+  # "2": "FF0000"
+  # "3": "FF0000"
+  # "4": "FF0000"
+  # "5": "FF0000"
+  # "6": "FF0000"
+  # "7": "FF0000"
+  # "8": "FF0000"
+  # "9": "FF0000"
+  # "0": "FF0000"
+  # SZLIG: "FF0000"        # ß key
+  # ACUTE: "FF0000"        # ´ key
+  # BACKSPACE: "FF0000"    # 3 LEDs
+
+  # === Tab row (QWERTZ) ===
+  # TAB: "FF0000"
+  # Q: "FF0000"
+  # W: "FF0000"
+  # E: "FF0000"
+  # R: "FF0000"
+  # T: "FF0000"
+  # Z: "FF0000"
+  # U: "FF0000"
+  # I: "FF0000"
+  # O: "FF0000"
+  # P: "FF0000"
+  # UUML: "FF0000"         # Ü key
+  # PLUS: "FF0000"         # + key
+  # HASH: "FF0000"         # # key
+
+  # === Home row ===
+  # CAPS: "FF0000"
+  # A: "FF0000"
+  # S: "FF0000"
+  # D: "FF0000"
+  # F: "FF0000"
+  # G: "FF0000"
+  # H: "FF0000"
+  # J: "FF0000"
+  # K: "FF0000"
+  # L: "FF0000"
+  # OUML: "FF0000"         # Ö key
+  # AUML: "FF0000"         # Ä key
+  # ENTER: "FF0000"        # 3 LEDs
+
+  # === Shift row ===
+  # LSHIFT: "FF0000"
+  # LESS: "FF0000"         # < > | key
+  # Y: "FF0000"
+  # X: "FF0000"
+  # C: "FF0000"
+  # V: "FF0000"
+  # B: "FF0000"
+  # N: "FF0000"
+  # M: "FF0000"
+  # COMMA: "FF0000"
+  # PERIOD: "FF0000"
+  # MINUS: "FF0000"        # - _ key
+  # RSHIFT: "FF0000"       # 2 LEDs
+
+  # === Bottom row ===
+  # LCTRL: "FF0000"
+  # FN: "FF0000"
+  # LWIN: "FF0000"
+  # LALT: "FF0000"
+  # SPACE: "FF0000"
+  # RALT: "FF0000"
+  # RCTRL: "FF0000"
+
+  # === Arrow keys ===
+  # UP: "FF0000"
+  # DOWN: "FF0000"
+  # LEFT: "FF0000"
+  # RIGHT: "FF0000"
+
+  # === Numpad ===
+  # NUMLOCK: "FF0000"
+  # KP_SLASH: "FF0000"
+  # KP_STAR: "FF0000"
+  # KP_MINUS: "FF0000"
+  # KP7: "FF0000"
+  # KP8: "FF0000"
+  # KP9: "FF0000"
+  # KP_PLUS: "FF0000"
+  # KP4: "FF0000"
+  # KP5: "FF0000"
+  # KP6: "FF0000"
+  # KP1: "FF0000"
+  # KP2: "FF0000"
+  # KP3: "FF0000"
+  # KP_ENTER: "FF0000"
+  # KP0: "FF0000"
+  # KP_COMMA: "FF0000"
