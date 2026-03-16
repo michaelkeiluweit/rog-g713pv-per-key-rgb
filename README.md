@@ -20,14 +20,17 @@ Should work on other ROG laptops with the same N-KEY Device (VID `0x0B05`, Usage
 - `hidapi` library
 
 ```bash
-pip install hidapi
+pip install hidapi pyyaml
 ```
 
 ## Usage
 
 ```bash
-# Apply default color scheme (green + custom highlights)
+# Apply colors from config.yaml
 python keyboard-led.py
+
+# Use a custom config file
+python keyboard-led.py -c myconfig.yaml
 
 # Turn all LEDs off
 python keyboard-led.py --off
@@ -36,18 +39,30 @@ python keyboard-led.py --off
 python keyboard-led.py --all FF00FF
 ```
 
-### Customizing colors
+### Configuration
 
-Edit the `main()` function in `keyboard-led.py`:
+Edit `config.yaml` (placed next to the script):
 
-```python
-base_color = (0, 255, 0)         # All keys: green
-accent_color = (255, 0, 0)       # Enter + LCtrl: red
-highlight_color = (128, 0, 255)  # Highlighted keys: purple
-highlight_keys = ['V', 'A', 'L', 'E', 'N', 'T', 'I']  # Keys to highlight
+```yaml
+# Base color for all keys
+base: "00FF00"
+
+# Per-key color overrides
+keys:
+  ENTER: "FF0000"
+  LCTRL: "FF0000"
+  W: "8000FF"
+  A: "8000FF"
+  S: "8000FF"
+  D: "8000FF"
 ```
 
-Available key names are defined in the `KEY` dictionary. See [Key Position Map](#key-position-map) for the full list.
+Colors can be hex strings (`"FF00FF"`) or RGB arrays (`[255, 0, 255]`).
+
+The config is validated on startup — if a key name is unknown or a color is invalid,
+you get a clear error message instead of a crash.
+
+Available key names are listed in the [Key Position Map](#key-position-map) below. Use `scan-keys.py` to find positions for keys not yet mapped.
 
 ### Run at login (Windows)
 
@@ -83,13 +98,17 @@ python scan-keys.py sweep 39 57
 
 The `PACKET_MAP` translates a position index to an LED index in the HID report. The `KEY` dictionary maps human-readable key names to position indices.
 
-### QWERTZ (German) Layout
+### QWERTZ (German) Layout — G713PV
+
+The PACKET_MAP interleaves numpad groups (5 entries each) with main keyboard groups
+(12-14 entries). Positions verified empirically on G713PV.
 
 ```
-Row 0 — Lightbar (pos 0-4)
-┌───┬───┬───┬───┬───┐
-│ 0 │ 1 │ 2 │ 3 │ 4 │  (decorative LEDs above keyboard)
-└───┴───┴───┴───┴───┘
+Row 0 — Macro keys (pos 0-4)
+┌────┬────┬────┬────┬────┐
+│ M1 │ M2 │ M3 │ M4 │ M5 │
+│  0 │  1 │  2 │  3 │  4 │
+└────┴────┴────┴────┴────┘
 
 Row 1 — Function (pos 5-17)
 ┌─────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┬────┐
@@ -97,39 +116,39 @@ Row 1 — Function (pos 5-17)
 │  5  │  6 │  7 │  8 │  9 │ 10 │ 11 │ 12 │ 13 │ 14 │ 15 │ 16 │ 17 │
 └─────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┴────┘
 
-Row 2 — Number row (pos 18-38)
-┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┬─────┬─────┬─────┐
-│ ^ │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ ß │ ´ │ BS  │ Ins │Home │PgUp│
-│18 │19 │20 │21 │22 │23 │24 │25 │26 │27 │28 │29 │30 │ 31  │ 32  │ 33  │ 34  │
-└───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴─────┴─────┴─────┴─────┘
+Row 2 — Number row (pos 23-35)          Nav (pos 19-22)     Numpad (pos 40-43)
+┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────────┐ ┌─────┬─────┬──────┬──────┐ ┌────┬───┬───┬───┐
+│ ^ │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ 9 │ 0 │ ß │ ´ │Backsp   │ │ Del │Pause│PrtSc │ Home │ │NmLk│ / │ * │ - │
+│23 │24 │25 │26 │27 │28 │29 │30 │31 │32 │33 │34 │35 │36,37,38 │ │ 19  │ 20  │  21  │  22  │ │ 40 │41 │42 │43 │
+└───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴─────────┘ └─────┴─────┴──────┴──────┘ └────┴───┴───┴───┘
 
-Row 3 — Tab row (pos 39-57)
-┌─────┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬─────┬─────┬─────┐
-│ Tab │ Q │ W │ E │ R │ T │ Z │ U │ I │ O │ P │ Ü │ + │ Del │ End │PgDn│
-│ 39  │40 │41 │42 │43 │44 │45 │46 │47 │48 │49 │50 │51 │ 52  │ 53  │ 54  │
-└─────┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴─────┴─────┴─────┘
+Row 3 — Tab row (pos 44-57)                                Numpad (pos 59-62)
+┌─────┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐ ┌───┬───┬───┬───┐
+│ Tab │ Q │ W │ E │ R │ T │ Z │ U │ I │ O │ P │ Ü │ + │ # │ │ 7 │ 8 │ 9 │ + │
+│ 44  │45 │46 │47 │48 │49 │50 │51 │52 │53 │54 │55 │56 │57 │ │59 │60 │61 │62 │
+└─────┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┘ └───┴───┴───┴───┘
 
-Row 4 — Home row (pos 58-78)
-┌──────┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬────────┐
-│ Caps │ A │ S │ D │ F │ G │ H │ J │ K │ L │ Ö │ Ä │ # │ Enter  │
-│  58  │59 │60 │61 │62 │63 │64 │65 │66 │67 │68 │69 │70 │76,77,78│
-└──────┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴────────┘
+Row 4 — Home row (pos 63-74)                                   Numpad (pos 80-82)
+┌──────┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬────────┐ ┌───┬───┬───┐
+│ Caps │ A │ S │ D │ F │ G │ H │ J │ K │ L │ Ö │ Ä │ Enter  │ │ 4 │ 5 │ 6 │
+│  63  │64 │65 │66 │67 │68 │69 │70 │71 │72 │73 │74 │76,77,78│ │80 │81 │82 │
+└──────┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴────────┘ └───┴───┴───┘
 
-Row 5 — Shift row (pos 79-98)
-┌───────┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬────────┬────┐
-│LShift │ < │ Y │ X │ C │ V │ B │ N │ M │ , │ . │ - │ RShift │ ↑  │
-│  79   │80 │81 │82 │83 │84 │85 │86 │87 │88 │89 │90 │   91   │ 96 │
-└───────┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴────────┴────┘
+Row 5 — Shift row (pos 84-95)                              Numpad (pos 101-104)
+┌───────┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬────────┬────┐ ┌───┬───┬───┬─────┐
+│LShift │ < │ Y │ X │ C │ V │ B │ N │ M │ , │ . │ - │ RShift │ ↑  │ │ 1 │ 2 │ 3 │KpEnt│
+│  84   │85 │86 │87 │88 │89 │90 │91 │92 │93 │94 │95 │   98   │ 99 │ │101│102│103│ 104 │
+└───────┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴───┴────────┴────┘ └───┴───┴───┴─────┘
 
-Row 6 — Bottom row (pos 99-119)
-┌──────┬────┬─────┬──────┬───────────────┬──────┬──────┬────┬────┬────┐
-│LCtrl │ Fn │ Win │ LAlt │    Space      │ RAlt │RCtrl │ ←  │ ↓  │ →  │
-│ 105  │106 │ 107 │ 108  │     109       │ 110  │ 112  │117 │118 │119 │
-└──────┴────┴─────┴──────┴───────────────┴──────┴──────┴────┴────┴────┘
+Row 6 — Bottom row (pos 105-112)                           Numpad (pos 117-118)
+┌──────┬────┬─────┬──────┬──────────┬──────┬──────┬────┬────┬────┐ ┌─────┬───┐
+│LCtrl │ Fn │ Win │ LAlt │  Space   │ RAlt │RCtrl │ ←  │ ↓  │ →  │ │  0  │ , │
+│ 105  │106 │ 107 │ 108  │   109    │ 110  │ 112  │113 │114 │115 │ │ 117 │118│
+└──────┴────┴─────┴──────┴──────────┴──────┴──────┴────┴────┴────┘ └─────┴───┘
 ```
 
-> **Note:** Some positions (e.g., 35-38, 55-57, 71-75, 92-95) may map to numpad keys on
-> keyboards that have one, or to unused LEDs on tenkeyless models. Use `scan-keys.py` to check.
+> **Note:** Some positions (e.g., 18, 39, 58, 75, 79, 96, 97, 100) are invisible/unused
+> on the G713PV. Use `scan-keys.py` to map keys on other models.
 
 ## How it works
 
